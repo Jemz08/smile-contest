@@ -84,22 +84,37 @@
     .leader-head { display: flex; align-items: center; justify-content: space-between; padding: 0 1px 14px; border-bottom: 1px solid var(--line); }
     .leader-head h2 { margin: 0; font-size: 20px; font-weight: 800; }
     .leader-head > span { color: var(--muted); font: 10px var(--mono); text-transform: uppercase; }
-    .leader-cols, .player-row { display: grid; grid-template-columns: 35px minmax(0, 1fr) auto; align-items: center; gap: 7px; }
+    .leader-cols, .player-row { display: grid; grid-template-columns: 35px minmax(0, 1fr) 28px auto; align-items: center; gap: 7px; }
     .leader-cols { padding: 12px 2px 8px; color: var(--muted); font: 9px var(--mono); text-transform: uppercase; }
     .leader-cols span:last-child { text-align: right; }
     .leader-list { display: flex; flex: 1; flex-direction: column; }
-    .player-row { min-height: 49px; border-top: 1px solid #e8e7dd; animation: arrive .25s both; }
+    .leader-entry { border-top: 1px solid #e8e7dd; animation: arrive .25s both; }
+    .player-row { min-height: 49px; }
     .rank { color: #78877a; font: 11px var(--mono); }
     .player-name { overflow: hidden; font-size: 13px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .player-row.is-you .player-name::after { content: "YOU"; margin-left: 7px; color: #658142; font: 9px var(--mono); }
+    .photo-toggle { display: grid; width: 27px; height: 27px; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
+    .photo-toggle:hover:not(:disabled) { background: #eeeee5; }
+    .photo-toggle:disabled { color: #a2aaa0; cursor: not-allowed; }
+    .player-photo { display: flex; align-items: center; gap: 10px; padding: 8px 0 12px 42px; }
+    .player-photo[hidden] { display: none; }
+    .player-photo img { width: 88px; height: 66px; border: 1px solid var(--line); border-radius: 3px; background: #d7e2d4; object-fit: cover; }
+    .player-photo span { max-width: 145px; color: var(--muted); font: 9px/1.5 var(--mono); }
     .player-score { min-width: 45px; padding: 5px 7px; border-radius: 2px; background: #f0f0e5; text-align: center; font: 11px var(--mono); }
-    .player-row:first-child .rank { color: #9a792d; }
-    .player-row:first-child .player-score { background: var(--lime); }
+    .leader-entry:first-child .rank { color: #9a792d; }
+    .leader-entry:first-child .player-score { background: var(--lime); }
     .empty-board { display: grid; flex: 1; align-content: center; justify-items: center; padding: 18px; color: var(--muted); text-align: center; }
     .empty-board span { margin-bottom: 11px; font-size: 31px; }
     .empty-board p { max-width: 205px; margin: 0; font-size: 13px; line-height: 1.5; }
     .leader-foot { display: flex; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font: 9px var(--mono); }
     .leader-foot button { padding: 0; border: 0; background: none; color: #557254; font: inherit; text-decoration: underline; cursor: pointer; }
+    .admin-panel { padding: 10px 0; border-top: 1px solid var(--line); }
+    .admin-panel summary { width: fit-content; color: #557254; font: 10px var(--mono); text-decoration: underline; cursor: pointer; }
+    .admin-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px; }
+    .admin-actions p { max-width: 190px; margin: 0; color: var(--muted); font: 9px/1.5 var(--mono); }
+    .admin-actions button[hidden] { display: none; }
+    .danger-btn { min-height: 36px; padding: 0 10px; border: 1px solid #d6a69a; border-radius: 3px; background: #fff7f3; color: #a44432; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .danger-btn:disabled { opacity: .45; cursor: not-allowed; }
     .name-gate { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; background: #f6f4edf2; backdrop-filter: blur(5px); }
     .name-gate.hidden { display: none; }
     .gate-card { width: min(350px, calc(100% - 36px)); padding: 24px; border: 1px solid #d4d8c8; border-radius: 4px; background: #fbfaf5; box-shadow: 0 12px 36px #183a3214; }
@@ -109,6 +124,8 @@
     .gate-card label { display: block; margin-bottom: 7px; font: 10px var(--mono); text-transform: uppercase; }
     .name-input { width: 100%; height: 43px; margin-bottom: 10px; padding: 0 11px; border: 1px solid #c9cec1; border-radius: 3px; outline: none; background: white; color: var(--ink); font-size: 14px; }
     .name-input:focus { border-color: #64836d; box-shadow: 0 0 0 3px #64836d1c; }
+    .consent-row { display: flex !important; align-items: flex-start; gap: 8px; margin: 0 0 13px !important; color: #52675d; font: 11px/1.45 var(--display) !important; text-transform: none !important; cursor: pointer; }
+    .consent-row input { flex: 0 0 auto; width: 15px; height: 15px; margin: 1px 0 0; accent-color: #64836d; }
     .gate-card .primary-btn { width: 100%; }
     .footnote { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 2px 0; color: var(--muted); font: 10px var(--mono); }
     .footnote strong { color: var(--ink); font-weight: 500; }
@@ -121,6 +138,14 @@
     .result-score { margin: 0 0 20px; font-size: 67px; font-weight: 800; line-height: 1; }
     .result-score small { font-size: 23px; }
     .result-modal .primary-btn { width: 100%; }
+    .clear-modal { text-align: left; }
+    .clear-modal h2 { margin-top: 0; }
+    .clear-modal > p { line-height: 1.5; }
+    .clear-modal label { display: block; margin: 17px 0 6px; font: 10px var(--mono); text-transform: uppercase; }
+    .clear-actions { display: flex; gap: 9px; margin-top: 14px; }
+    .clear-actions > * { flex: 1; }
+    .clear-actions .secondary-btn { min-height: 43px; }
+    .clear-actions .danger-btn { min-height: 43px; }
     .toast { position: fixed; z-index: 20; right: 20px; bottom: 20px; max-width: min(360px, calc(100vw - 40px)); padding: 12px 15px; border-radius: 3px; background: var(--ink); color: white; font-size: 13px; box-shadow: 0 7px 22px #183a322b; }
     @keyframes arrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes blink { 50% { opacity: .35; } }
@@ -172,6 +197,7 @@
               <form id="nameForm" class="gate-card">
                 <p class="eyebrow">First things first</p><h2>Who's smiling?</h2><p>Pick your name and take your place on the board.</p>
                 <label for="playerName">Your name</label><input id="playerName" class="name-input" name="name" type="text" maxlength="20" autocomplete="nickname" placeholder="e.g. Sunny" required>
+                <label class="consent-row"><input id="photoConsent" type="checkbox" required><span id="photoConsentCopy">I agree to show a small face photo with my best score on the shared leaderboard.</span></label>
                 <button class="primary-btn" type="submit">Take your spot <span aria-hidden="true">→</span></button>
               </form>
             </div>
@@ -184,16 +210,34 @@
         </div>
         <aside class="leader-area" aria-label="Leaderboard">
           <div class="leader-head"><h2>Leaderboard</h2><span id="playerCount">0 players</span></div>
-          <div class="leader-cols"><span>Rank</span><span>Player</span><span>Best smile</span></div>
+          <div class="leader-cols"><span>Rank</span><span>Player</span><span></span><span>Best smile</span></div>
           <div id="leaderList" class="leader-list"><div class="empty-board"><span aria-hidden="true">☺</span><p>Your name belongs up here. Take the first round.</p></div></div>
+          <details id="adminPanel" class="admin-panel"><summary>Admin controls</summary><div class="admin-actions"><p id="adminStatus">Sign in as the board owner to clear all shared scores and photos.</p><button id="adminLogin" class="secondary-btn" type="button">Admin sign in</button><button id="clearBoard" class="danger-btn" type="button" hidden>Clear leaderboard</button><button id="adminLogout" class="secondary-btn" type="button" hidden>Sign out</button></div></details>
           <div class="leader-foot"><span>One best score per player</span><button id="downloadBoard" type="button">Export scores ↓</button></div>
         </aside>
       </section>
-      <footer class="footnote"><span><strong>HOW IT WORKS</strong> &nbsp; 20 seconds on the clock. Big smiles beat small ones.</span><span>Smile score is an estimate, not a mood reading.</span></footer>
+      <footer class="footnote"><span><strong>HOW IT WORKS</strong> &nbsp; 20 seconds on the clock. Big, balanced smiles reach 100%.</span><span id="storageNote">Scores and consented photos appear on the shared leaderboard.</span></footer>
     </main>
   </div>
   <div id="resultBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
     <div class="result-modal"><div class="result-spark" aria-hidden="true">✳</div><p class="eyebrow">Round complete</p><h2 id="resultTitle">That was a good one.</h2><p id="resultDescription">Your best smile score is on the board.</p><div id="resultScore" class="result-score">0<small>%</small></div><button id="playAgain" class="primary-btn" type="button">Back to the booth <span aria-hidden="true">→</span></button></div>
+  </div>
+  <div id="adminLoginBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+    <form id="adminLoginForm" class="result-modal clear-modal">
+      <p class="eyebrow">Board owner</p><h2 id="adminLoginTitle">Admin sign in</h2>
+      <p>Enter the board-admin password to manage shared leaderboard data.</p>
+      <label for="adminPassword">Admin password</label><input id="adminPassword" class="name-input" type="password" autocomplete="current-password" required>
+      <p id="adminLoginError" class="camera-error" role="alert" hidden></p>
+      <div class="clear-actions"><button id="cancelAdminLogin" class="secondary-btn" type="button">Cancel</button><button class="primary-btn" type="submit">Sign in</button></div>
+    </form>
+  </div>
+  <div id="clearBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="clearTitle">
+    <form id="clearForm" class="result-modal clear-modal">
+      <p class="eyebrow">Admin confirmation</p><h2 id="clearTitle">Clear this leaderboard?</h2>
+      <p>This removes every saved player, score, and face photo from the shared leaderboard for everyone. This can't be undone.</p>
+      <label for="clearConfirm">Type CLEAR to confirm</label><input id="clearConfirm" class="name-input" type="text" autocomplete="off" spellcheck="false">
+      <div class="clear-actions"><button id="cancelClear" class="secondary-btn" type="button">Cancel</button><button id="confirmClear" class="danger-btn" type="submit" disabled>Clear all</button></div>
+    </form>
   </div>
   <script type="module">
     const $ = (selector) => document.querySelector(selector);
@@ -202,6 +246,7 @@
     const startButton = $("#startButton");
     const roundLength = 20;
     const scoreKey = "smile-club-scores-v1";
+    const localPreview = ["localhost", "127.0.0.1"].includes(location.hostname);
     let playerName = "";
     let faceLandmarker;
     let stream;
@@ -210,7 +255,12 @@
     let frameId;
     let liveScore = 0;
     let roundBest = 0;
-    let savedScores = loadScores();
+    let roundPhoto = "";
+    let perfectSmileSince = 0;
+    let savedScores = localPreview ? loadScores() : [];
+    let sharedMode = false;
+    let boardReady = localPreview;
+    let adminUnlocked = false;
 
     function loadScores() {
       try {
@@ -220,18 +270,98 @@
     }
 
     function sortedScores() {
-      return [...savedScores].sort((a, b) => b.score - a.score || a.time - b.time || a.name.localeCompare(b.name));
+      const timeOf = (entry) => entry.time || Date.parse(entry.created_at) || 0;
+      return [...savedScores].sort((a, b) => b.score - a.score || timeOf(a) - timeOf(b) || a.name.localeCompare(b.name));
+    }
+
+    function updateAdminControls() {
+      const localMessage = "Admin sign-in is available on the hosted shared leaderboard.";
+      $("#adminStatus").textContent = localPreview && !sharedMode
+        ? localMessage
+        : adminUnlocked ? "Signed in. Clearing removes scores and photos for everyone." : "Sign in as the board owner to clear all shared scores and photos.";
+      $("#adminLogin").hidden = localPreview || !sharedMode || adminUnlocked;
+      $("#clearBoard").hidden = localPreview || !sharedMode || !adminUnlocked;
+      $("#adminLogout").hidden = localPreview || !sharedMode || !adminUnlocked;
+    }
+
+    async function refreshAdminSession() {
+      if (!sharedMode) return;
+      try {
+        const response = await fetch("/api/admin/session", { cache: "no-store" });
+        adminUnlocked = response.ok && (await response.json()).authenticated === true;
+      } catch {
+        adminUnlocked = false;
+      }
+      updateAdminControls();
+    }
+
+    async function refreshLeaderboard() {
+      try {
+        const response = await fetch("/api/scores", { cache: "no-store" });
+        if (response.status === 404 && localPreview) {
+          sharedMode = false;
+          boardReady = true;
+          savedScores = loadScores();
+          $("#storageNote").textContent = "Local preview only; hosted scores and photos are shared.";
+          $("#photoConsentCopy").textContent = "I agree to save a small face photo with my best score in this browser's preview leaderboard.";
+          renderBoard();
+          updateAdminControls();
+          return;
+        }
+        if (!response.ok) throw new Error("Shared leaderboard unavailable");
+        const scores = await response.json();
+        savedScores = Array.isArray(scores) ? scores : [];
+        sharedMode = true;
+        boardReady = true;
+        $("#storageNote").textContent = "Scores and consented photos appear on the shared leaderboard.";
+        $("#photoConsentCopy").textContent = "I agree to show a small face photo with my best score on the shared leaderboard.";
+        renderBoard();
+        await refreshAdminSession();
+      } catch {
+        boardReady = false;
+        $("#storageNote").textContent = "The shared leaderboard is temporarily unavailable.";
+        $("#statusText").textContent = "Leaderboard unavailable";
+        $("#overlayTitle").textContent = "The leaderboard is offline";
+        $("#overlayMessage").textContent = "Scores can't be shared right now. Please try again shortly.";
+        updateAdminControls();
+      }
+    }
+
+    async function saveScore(name, score, photo) {
+      if (localPreview && !sharedMode) {
+        const existing = savedScores.find((entry) => entry.name.toLocaleLowerCase() === name.toLocaleLowerCase());
+        if (!existing || score > existing.score) {
+          savedScores = savedScores.filter((entry) => entry.name.toLocaleLowerCase() !== name.toLocaleLowerCase());
+          savedScores.push({ name, score, time: Date.now(), photo });
+          localStorage.setItem(scoreKey, JSON.stringify(savedScores));
+        }
+        return;
+      }
+      const response = await fetch("/api/scores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, score, photo })
+      });
+      if (!response.ok) throw new Error("The shared score could not be saved");
+      const scoresResponse = await fetch("/api/scores", { cache: "no-store" });
+      if (!scoresResponse.ok) throw new Error("The shared leaderboard could not be refreshed");
+      savedScores = await scoresResponse.json();
     }
 
     function renderBoard() {
       const scores = sortedScores();
       $("#playerCount").textContent = `${scores.length} ${scores.length === 1 ? "player" : "players"}`;
+      $("#clearBoard").disabled = scores.length === 0;
       const board = $("#leaderList");
       if (!scores.length) {
         board.innerHTML = '<div class="empty-board"><span aria-hidden="true">☺</span><p>Your name belongs up here. Take the first round.</p></div>';
         return;
       }
-      board.innerHTML = scores.map((entry, index) => `<div class="player-row${entry.name.toLocaleLowerCase() === playerName.toLocaleLowerCase() ? " is-you" : ""}"><span class="rank">${String(index + 1).padStart(2, "0")}</span><span class="player-name" title="${escapeHtml(entry.name)}">${escapeHtml(entry.name)}</span><span class="player-score">${entry.score}%</span></div>`).join("");
+      board.innerHTML = scores.map((entry, index) => {
+        const hasPhoto = typeof entry.photo === "string" && /^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(entry.photo);
+        const safeName = escapeHtml(entry.name);
+        return `<div class="leader-entry"><div class="player-row${entry.name.toLocaleLowerCase() === playerName.toLocaleLowerCase() ? " is-you" : ""}"><span class="rank">${String(index + 1).padStart(2, "0")}</span><span class="player-name" title="${safeName}">${safeName}</span><button class="photo-toggle" type="button" data-photo-toggle="${index}" aria-expanded="false" aria-controls="player-photo-${index}" aria-label="${hasPhoto ? `Show ${safeName}'s face photo` : `No face photo saved for ${safeName}`}"${hasPhoto ? "" : " disabled"}>${hasPhoto ? "▾" : "·"}</button><span class="player-score">${entry.score}%</span></div><div id="player-photo-${index}" class="player-photo" hidden>${hasPhoto ? `<img src="${entry.photo}" alt="${safeName}'s contest photo"><span>Best-smile snapshot · shown on the shared leaderboard</span>` : ""}</div></div>`;
+      }).join("");
     }
 
     function escapeHtml(value) {
@@ -258,10 +388,38 @@
       $("#meterFill").classList.toggle("maxed", liveScore >= 85);
       $(".meter-track").setAttribute("aria-valuenow", String(liveScore));
       if (running) {
-        roundBest = Math.max(roundBest, liveScore);
+        if (liveScore > roundBest) {
+          roundBest = liveScore;
+          if (liveScore > 0) roundPhoto = captureFacePhoto();
+        }
         $("#bestScore").textContent = `${roundBest}%`;
-        $("#meterCaption").textContent = roundBest >= 100 ? "Full power! Keep it going!" : "Best smile this round";
+        $("#meterCaption").textContent = roundBest >= 100 ? "Held a balanced smile. Perfect!" : "Best smile this round";
       }
+    }
+
+    function calculateSmileScore(left, right, now) {
+      const average = (left + right) / 2;
+      const balance = Math.min(left, right) / Math.max(left, right, 0.001);
+      let score = Math.min(100, average / 0.92 * (0.55 + 0.45 * balance) * 100);
+      if (score >= 99) {
+        if (!perfectSmileSince) perfectSmileSince = now;
+        if (now - perfectSmileSince < 1400) score = Math.min(98, score);
+      } else {
+        perfectSmileSince = 0;
+      }
+      return score;
+    }
+
+    function captureFacePhoto() {
+      if (!stream || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return "";
+      const canvas = document.createElement("canvas");
+      canvas.width = 192;
+      canvas.height = 144;
+      const context = canvas.getContext("2d");
+      context.translate(canvas.width, 0);
+      context.scale(-1, 1);
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL("image/jpeg", 0.58);
     }
 
     async function prepareCamera() {
@@ -305,9 +463,10 @@
         const result = faceLandmarker.detectForVideo(video, performance.now());
         const categories = result.faceBlendshapes?.[0]?.categories;
         if (categories) {
+          if (!roundPhoto) roundPhoto = captureFacePhoto();
           const left = categories.find((item) => item.categoryName === "mouthSmileLeft")?.score ?? 0;
           const right = categories.find((item) => item.categoryName === "mouthSmileRight")?.score ?? 0;
-          updateMeter(((left + right) / 2) / 0.68 * 100);
+          updateMeter(calculateSmileScore(left, right, performance.now()));
           setOverlay("", "");
           $("#cameraOverlay").classList.add("hidden");
         } else {
@@ -318,10 +477,11 @@
       frameId = requestAnimationFrame(detectFrame);
     }
 
-    function finishRound() {
+    async function finishRound() {
       running = false;
       cancelAnimationFrame(frameId);
       clearInterval(countdown);
+      const photo = roundPhoto;
       $("#timerChip").classList.remove("visible");
       $("#scoreChip").classList.remove("visible");
       video.classList.remove("ready");
@@ -334,17 +494,25 @@
       updateMeter(roundBest);
       $("#meterCaption").textContent = "Final score";
       const existing = savedScores.find((entry) => entry.name.toLocaleLowerCase() === playerName.toLocaleLowerCase());
-      const isNewRecord = !existing || roundBest > existing.score;
-      if (isNewRecord) {
-        savedScores = savedScores.filter((entry) => entry.name.toLocaleLowerCase() !== playerName.toLocaleLowerCase());
-        savedScores.push({ name: playerName, score: roundBest, time: Date.now() });
-        try { localStorage.setItem(scoreKey, JSON.stringify(savedScores)); }
-        catch { showToast("Your browser storage is full. Export the board to keep these scores."); }
+      const isNewBest = !existing || roundBest > existing.score;
+      let savedNewBest = false;
+      if (isNewBest && photo) {
+        try {
+          await saveScore(playerName, roundBest, photo);
+          savedNewBest = true;
+        } catch {
+          showToast("Your score couldn't reach the shared leaderboard. Please try again.");
+        }
+      } else if (isNewBest) {
+        showToast("No face photo was captured, so this round wasn't added to the leaderboard.");
       }
       renderBoard();
       const rank = sortedScores().findIndex((entry) => entry.name.toLocaleLowerCase() === playerName.toLocaleLowerCase()) + 1;
-      $("#resultTitle").textContent = roundBest >= 100 ? "A perfect 100%!" : isNewRecord ? "A new personal best!" : "Round complete!";
-      $("#resultDescription").textContent = `${isNewRecord ? "Your best score is saved" : "Your top score stays on the board"} · you're #${rank || "–"} on this device.`;
+      const hasBoardEntry = savedScores.some((entry) => entry.name.toLocaleLowerCase() === playerName.toLocaleLowerCase());
+      $("#resultTitle").textContent = savedNewBest && roundBest >= 100 ? "A perfect 100%!" : savedNewBest ? "A new personal best!" : "Round complete!";
+      $("#resultDescription").textContent = !hasBoardEntry
+        ? "This round wasn't saved. Try again when the shared leaderboard is available."
+        : savedNewBest ? `Your new best is shared · you're #${rank}.` : `Your previous best stays on the board · you're #${rank}.`;
       $("#resultScore").innerHTML = `${roundBest}<small>%</small>`;
       $("#resultBackdrop").classList.add("open");
       $("#playAgain").focus();
@@ -370,8 +538,10 @@
         }
         await loadDetector();
         roundBest = 0;
+        roundPhoto = "";
         updateMeter(0);
         running = true;
+        perfectSmileSince = 0;
         let remaining = roundLength;
         $("#timerChip").textContent = `00:${String(remaining).padStart(2, "0")}`;
         $("#timerChip").classList.add("visible");
@@ -404,6 +574,10 @@
     $("#contestDate").textContent = new Intl.DateTimeFormat(undefined, { month: "short", year: "numeric" }).format(new Date());
     $("#nameForm").addEventListener("submit", (event) => {
       event.preventDefault();
+      if (!boardReady) {
+        showToast("The shared leaderboard is unavailable right now. Try again shortly.");
+        return;
+      }
       const input = $("#playerName");
       playerName = input.value.trim().replace(/\s+/g, " ").slice(0, 20);
       if (!playerName) { input.focus(); return; }
@@ -417,6 +591,92 @@
     });
 
     startButton.addEventListener("click", beginRound);
+    $("#leaderList").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-photo-toggle]");
+      if (!button) return;
+      const index = Number(button.dataset.photoToggle);
+      const photo = $(`#player-photo-${index}`);
+      if (!photo) return;
+      const expanded = button.getAttribute("aria-expanded") === "true";
+      photo.hidden = expanded;
+      button.setAttribute("aria-expanded", String(!expanded));
+      button.textContent = expanded ? "▾" : "▴";
+      button.setAttribute("aria-label", `${expanded ? "Show" : "Hide"} ${savedScores[index].name}'s face photo`);
+    });
+    $("#adminLogin").addEventListener("click", () => {
+      $("#adminLoginError").hidden = true;
+      $("#adminPassword").value = "";
+      $("#adminLoginBackdrop").classList.add("open");
+      $("#adminPassword").focus();
+    });
+    $("#adminLoginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = event.currentTarget.querySelector('[type="submit"]');
+      button.disabled = true;
+      $("#adminLoginError").hidden = true;
+      try {
+        const response = await fetch("/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: $("#adminPassword").value })
+        });
+        if (!response.ok) throw new Error(response.status === 401 ? "That password didn't match." : "Admin sign-in is not configured yet.");
+        adminUnlocked = true;
+        updateAdminControls();
+        $("#adminLoginBackdrop").classList.remove("open");
+        $("#adminLoginForm").reset();
+      } catch (error) {
+        $("#adminLoginError").textContent = error.message;
+        $("#adminLoginError").hidden = false;
+      } finally {
+        button.disabled = false;
+      }
+    });
+    $("#cancelAdminLogin").addEventListener("click", () => $("#adminLoginBackdrop").classList.remove("open"));
+    $("#adminLoginBackdrop").addEventListener("click", (event) => {
+      if (event.target === $("#adminLoginBackdrop")) $("#adminLoginBackdrop").classList.remove("open");
+    });
+    $("#clearBoard").addEventListener("click", () => {
+      $("#clearConfirm").value = "";
+      $("#confirmClear").disabled = true;
+      $("#clearBackdrop").classList.add("open");
+      $("#clearConfirm").focus();
+    });
+    $("#clearConfirm").addEventListener("input", (event) => {
+      $("#confirmClear").disabled = event.currentTarget.value.trim() !== "CLEAR";
+    });
+    $("#clearForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if ($("#clearConfirm").value.trim() !== "CLEAR" || !adminUnlocked) return;
+      $("#confirmClear").disabled = true;
+      try {
+        const response = await fetch("/api/admin/clear", { method: "DELETE" });
+        if (response.status === 401) {
+          adminUnlocked = false;
+          updateAdminControls();
+          throw new Error("Admin session expired. Sign in again.");
+        }
+        if (!response.ok) throw new Error("The shared leaderboard could not be cleared. Try again.");
+        savedScores = [];
+        renderBoard();
+        $("#clearBackdrop").classList.remove("open");
+        showToast("Shared scores and photos cleared.");
+      } catch (error) {
+        showToast(error.message);
+        $("#confirmClear").disabled = $("#clearConfirm").value.trim() !== "CLEAR";
+      }
+    });
+    $("#cancelClear").addEventListener("click", () => $("#clearBackdrop").classList.remove("open"));
+    $("#clearBackdrop").addEventListener("click", (event) => {
+      if (event.target === $("#clearBackdrop")) $("#clearBackdrop").classList.remove("open");
+    });
+    $("#adminLogout").addEventListener("click", async () => {
+      try { await fetch("/api/admin/logout", { method: "POST" }); }
+      finally {
+        adminUnlocked = false;
+        updateAdminControls();
+      }
+    });
     $("#changeName").addEventListener("click", () => {
       if (running) return;
       $("#playerName").value = playerName;
@@ -445,6 +705,8 @@
     });
 
     renderBoard();
+    updateAdminControls();
+    void refreshLeaderboard();
   </script>
 </body>
 </html>
