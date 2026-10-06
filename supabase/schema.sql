@@ -48,3 +48,4 @@ $$;
 
 revoke all on function public.submit_smile_score(text, integer, text) from public;
 grant execute on function public.submit_smile_score(text, integer, text) to anon, authenticated;
+grant execute on function public.submit_smile_score(text, integer, text) to service_role;
