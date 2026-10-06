@@ -14,6 +14,7 @@ create table if not exists public.smile_scores (
 
 alter table public.smile_scores enable row level security;
 revoke all on table public.smile_scores from anon, authenticated;
+grant select, delete on table public.smile_scores to service_role;
 grant usage on schema public to anon, authenticated;
 
 drop function if exists public.submit_smile_score(text, integer, text);
