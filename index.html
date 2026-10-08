@@ -25,10 +25,11 @@
       --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; min-width: 320px; color: var(--ink); background-color: var(--paper); background-image: radial-gradient(#afdde5 0.7px, transparent 0.7px); background-size: 18px 18px; font-family: var(--display); }
+    body { position: relative; isolation: isolate; margin: 0; min-width: 320px; color: var(--ink); background-color: var(--paper); font-family: var(--display); }
+    body::before { position: fixed; z-index: 0; inset: 0; content: ""; pointer-events: none; background: linear-gradient(125deg, #dff0ee, #9fd8dc, #75c4cb, #bee7d9, #e4edcf, #a3d5d2, #dff0ee); background-size: 200% 200%; animation: gradient-flow 15s ease-in-out infinite alternate; }
     button, input { font: inherit; }
     button { color: inherit; }
-    .shell { width: min(1330px, 100% - 64px); margin: 0 auto; }
+    .shell { position: relative; z-index: 1; width: min(1330px, 100% - 64px); margin: 0 auto; }
     .topbar { height: 77px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
     .brand { display: flex; align-items: center; gap: 11px; font-size: 20px; font-weight: 800; letter-spacing: 0; }
     .brand-mark { display: grid; width: 34px; aspect-ratio: 1; place-items: center; border: 1px solid var(--aqua); border-radius: 9px; background: var(--pale-cyan); font-size: 19px; }
@@ -153,6 +154,7 @@
     .toast { position: fixed; z-index: 20; right: 20px; bottom: 20px; max-width: min(360px, calc(100vw - 40px)); padding: 12px 15px; border-radius: 3px; background: var(--ink); color: white; font-size: 13px; box-shadow: 0 7px 22px #0031352b; }
     @keyframes arrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes blink { 50% { opacity: .35; } }
+    @keyframes gradient-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
     @media (min-width: 1450px) { .layout { min-height: 590px; } .arena { min-height: 365px; } }
     @media (max-width: 760px) {
       .shell { width: calc(100% - 32px); }
